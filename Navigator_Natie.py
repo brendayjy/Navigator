@@ -53,6 +53,7 @@ class NavigatorTracker:
             "session_name": session_name,
             "description": description,
             "date": date,
+            "plan_of_the_day":plan_input,
             "plan_levels": plan_levels,   # 存储计划等级字典
             "integrity": integrity,
             "linearity": linearity,

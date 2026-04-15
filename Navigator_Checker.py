@@ -10,20 +10,47 @@ class NavigatorCompliance:
         self.HIGH_RISK = {'M', 'Q'}   # D 单独处理
         self.BASE_DIMS = {'T', 'L', 'O', 'F'}
 
+    def load_baseline_from_history(self):
+        """从 navigator_data.json 中读取最近一次表现优异的计划等级作为 baseline"""
+        try:
+            with open("navigator_data.json", 'r', encoding='utf-8') as f:
+                history = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            history = []
+            
+        # 从后往前找第一条结论包含“表现优异”的记录
+        for session in reversed(history):
+            conclusion = session.get("conclusion", "")
+            if "表现优异" in conclusion:
+                plan_levels = session.get("plan_levels")
+                if plan_levels and isinstance(plan_levels, dict):
+                    # 确保所有维度都存在，缺失的补1
+                    for dim in self.MAX_LEVELS:
+                        if dim not in plan_levels:
+                            plan_levels[dim] = 1
+                    return plan_levels
+        # 没找到则返回全1
+        return {dim: 1 for dim in self.MAX_LEVELS}
+    
+
     def input_baseline(self):
-        baseline = {}
-        print("\n请输入当前基准等级（最近一次成功通过的等级）：")
+        baseline = self.load_baseline_from_history()
+        print("\n当前基准等级（来自最近一次表现优异的记录）：")
         for dim in self.MAX_LEVELS:
-            while True:
-                try:
-                    val = int(input(f"  {dim} (1~{self.MAX_LEVELS[dim]}): "))
-                    if 1 <= val <= self.MAX_LEVELS[dim]:
-                        baseline[dim] = val
-                        break
-                    else:
-                        print(f"  等级必须在 1~{self.MAX_LEVELS[dim]} 之间")
-                except ValueError:
-                    print("  请输入数字")
+            print(f"  {dim}: {baseline[dim]}")
+        modify = input("是否需要手动修改？(y/n): ").lower()
+        if modify == 'y':
+            for dim in self.MAX_LEVELS:
+                while True:
+                    try:
+                        val = int(input(f"  {dim} (1~{self.MAX_LEVELS[dim]}): "))
+                        if 1 <= val <= self.MAX_LEVELS[dim]:
+                            baseline[dim] = val
+                            break
+                        else:
+                            print(f"  等级必须在 1~{self.MAX_LEVELS[dim]} 之间")
+                    except ValueError:
+                        print("  请输入数字")
         return baseline
 
     def parse_plan_input(self, input_str, baseline):

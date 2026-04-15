@@ -1,11 +1,50 @@
 [
     {
         "session_name": "DT1",
-        "description": "\u5b9a\u70b9\u7b49\u5f85\u53cc\u76d8\u4e09\u89d2\u5f62\u8d70\u4f4d\u63a5\u76d8\u8bad\u7ec3",
+        "description": "定点等待双盘三角形走位接盘训练",
         "date": "2026-04-13",
         "integrity": 4.5,
         "linearity": 4.5,
         "arousal": 4.0,
         "score": 101.25
+    },
+    {
+        "session_name": "DT1",
+        "description": "定点等待双盘三角形走位接盘训练",
+        "date": "2026-04-15",
+        "plan_levels": {
+            "T": 2,
+            "O": 2,
+            "L": 1,
+            "F": 1,
+            "M": 1,
+            "Q": 1,
+            "D": 1
+        },
+        "integrity": 4.5,
+        "linearity": 4.5,
+        "arousal": 4.0,
+        "score": 101.25,
+        "conclusion": "表现优异！可以考虑进入下一难度等级或增加环境干扰。"
+    },
+    {
+        "session_name": "DT1",
+        "description": "定点等待双盘三角形走位接盘训练",
+        "date": "2026-04-15",
+        "plan_of_the_day": "T2 O2",
+        "plan_levels": {
+            "T": 2,
+            "O": 2,
+            "L": 1,
+            "F": 1,
+            "M": 1,
+            "Q": 1,
+            "D": 1
+        },
+        "integrity": 4.5,
+        "linearity": 4.5,
+        "arousal": 4.0,
+        "score": 101.25,
+        "conclusion": "表现优异！可以考虑进入下一难度等级或增加环境干扰。"
     }
 ]
